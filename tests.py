@@ -12,7 +12,7 @@ inc '''
 
 
 code1 = '''\
-mov a
+mov a 5
 inc a
 dec a
 dec a
@@ -33,6 +33,11 @@ jnz c -5
 jnz 0 1
 mov c a'''
 
-simple_assembler(code0.splitlines()) # None
-# simple_assembler(code1.splitlines())  # {'a': 1}
+print("Starting Test 1...")
+simple_assembler(code0.splitlines())  # None
+
+print("\n\nStarting Test 2...")
+simple_assembler(code1.splitlines())  # {'a': 1}
+
+# print("\n\nStarting Test 3...")
 # simple_assembler(code2.splitlines()) # {'a': 409600, 'c': 409600, 'b': 409600}
