@@ -51,7 +51,7 @@ This kata is based on the [`Advent of Code 2016 - day 12`](https://adventofcode.
 
 ## Usage
 
-  $ python main.py
+    $ python main.py
 
 Or
 
