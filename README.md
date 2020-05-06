@@ -47,3 +47,24 @@ So, the function should return
 {'a': 1}
 ```
 This kata is based on the [`Advent of Code 2016 - day 12`](https://adventofcode.com/2016/day/12).
+
+
+## Usage
+
+  $ python main.py
+
+Or
+
+```python
+from main import simple_assembler
+
+program = '''\
+mov a 5
+inc a
+dec a
+dec a
+jnz a -1
+inc a'''
+
+simple_assembler(program.splitlines())
+```
