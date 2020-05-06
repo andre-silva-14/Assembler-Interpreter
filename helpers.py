@@ -9,3 +9,17 @@ def isint(val: int) -> bool:
         return True
     except ValueError:
         return False
+
+
+def isinitialized(register: str, register_copy: dict) -> bool:
+    """
+    Check if a given register is already initialized.
+    :param register: Register to check.
+    :param register_copy: Dictionary of existing registers.
+    :return: True if register is already initialized.
+    """
+    try:
+        register_copy[register]
+        return True
+    except KeyError:
+        return False

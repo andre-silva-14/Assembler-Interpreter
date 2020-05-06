@@ -1,4 +1,4 @@
-from helpers import isint
+from helpers import isint, isinitialized
 
 
 def ArgumentCountException(function: str, args: int, count: int) -> bool:
@@ -37,6 +37,24 @@ def ArgumentTypeException(function: str, *args: tuple) -> bool:
                 return False
         except KeyError:
             print(f'{function} {name}: Internal error, expected data type is not supported.')
+            return False
+
+    return True
+
+
+def UninitializedRegisterException(function: str, register_dict: dict, *args: str) -> bool:
+    """
+    Checks if the given registers are initialized.
+    :param function: The display name given to the function making the call.
+    :param register_dict: The global Register Dict with all current initialized registers.
+    :param args: One or more registers to check.
+    :return: Returns a boolean as a result initialization lookup.
+    """
+    name = "UninitializedRegisterException"
+
+    for register in args:
+        if not isinitialized(register, register_dict):
+            print(f'{function} {name}: Register {register} is Uninitialized.')
             return False
 
     return True
