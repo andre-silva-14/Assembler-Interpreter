@@ -94,3 +94,21 @@ def jump_instruction(args, register_copy: dict):
         register = register_copy[register]
 
     return int(value) if register != 0 else False
+
+
+def help(args, register_copy: dict):
+    """
+    Help function to guide user.
+    :return: List of available commands.
+    """
+    commands = {
+        'mov': "Create a variable. I.e. mov a 5",
+        'inc': "Increment variable by 1. I.e. inc a",
+        'dec': "Decrement variable by 1. I.e. dec a",
+        'jnz': "Jump a specific amount of steps forwards or backwards inside a multi-command call until \
+the defined variable is 0. I.e. jnz a -2"
+    }
+
+    for command in commands:
+        print(f"- {command} : {commands[command]}")
+
