@@ -16,18 +16,25 @@ def run_command(command):
     command = command.split()[0]
     register_copy = REGISTER
     try:
-        return COMMANDS[command](args, register_copy=register_copy)
+        return COMMANDS[command](args, register_copy)
     except KeyError:
         print(f"{command} is not recognized as an internal command. Run \"help\" for help.")
         return False
 
 
 def simple_assembler(program):
-
-    for command in program:
+    i = 0
+    while i < len(program):
+        command = program[i]
         output = run_command(command)
         if output:
-            REGISTER.update(output)
+            try:
+                REGISTER.update(output)
+                i += 1
+            except ValueError:
+                i += output
+        else:
+            i += 1
 
     return REGISTER
 

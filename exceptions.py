@@ -50,11 +50,11 @@ def UninitializedRegisterException(function: str, register_dict: dict, *args: st
     :param args: One or more registers to check.
     :return: Returns a boolean as a result initialization lookup.
     """
-    name = "UninitializedRegisterException"
+    name = UninitializedRegisterException.__name__
 
     for register in args:
         if not isinitialized(register, register_dict):
-            print(f'{function} {name}: Register {register} is Uninitialized.')
+            print(f'{function} {name}: Register {register} is not initialized.')
             return False
 
     return True
