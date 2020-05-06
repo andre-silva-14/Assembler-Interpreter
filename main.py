@@ -5,7 +5,8 @@ COMMANDS = {
     'mov': commands.set_register,
     'inc': commands.increment_value,
     'dec': commands.decrease_value,
-    'jnz': commands.jump_instruction
+    'jnz': commands.jump_instruction,
+    'help': commands.help,
 }
 
 REGISTER = {}
@@ -23,6 +24,7 @@ def run_command(command):
 
 
 def simple_assembler(program):
+    REGISTER.clear()
     i = 0
     while i < len(program):
         command = program[i]
@@ -31,7 +33,7 @@ def simple_assembler(program):
             try:
                 REGISTER.update(output)
                 i += 1
-            except ValueError:
+            except TypeError:
                 i += output
         else:
             i += 1
@@ -43,5 +45,8 @@ if __name__ == "__main__":
     while True:
         output = run_command(input(">> "))
         if output:
-            REGISTER.update(output)
-            print(REGISTER)
+            try:
+                REGISTER.update(output)
+                print(REGISTER)
+            except TypeError:
+                pass
