@@ -7,6 +7,7 @@ COMMANDS = {
     'dec': commands.decrease_value,
     'jnz': commands.jump_instruction,
     'help': commands.help,
+    'quit': commands.quit_assembler,
 }
 
 REGISTER = {}

@@ -106,9 +106,17 @@ def help(args, register_copy: dict):
         'inc': "Increment variable by 1. I.e. inc a",
         'dec': "Decrement variable by 1. I.e. dec a",
         'jnz': "Jump a specific amount of steps forwards or backwards inside a multi-command call until \
-the defined variable is 0. I.e. jnz a -2"
+the defined variable is 0. I.e. jnz a -2",
+        'quit': "Quit the assembler."
     }
 
     for command in commands:
         print(f"- {command} : {commands[command]}")
 
+
+def quit_assembler(args, register_copy: dict):
+    """
+    Quits the program.
+    :return: None
+    """
+    quit()
