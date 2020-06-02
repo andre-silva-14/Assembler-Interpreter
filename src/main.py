@@ -15,9 +15,8 @@ REGISTER = {}
 def run_command(command):
     args = command.split()[1:]
     command = command.split()[0]
-    register_copy = REGISTER
     try:
-        return COMMANDS[command](args, register_copy)
+        return COMMANDS[command](args, REGISTER)
     except KeyError:
         print(f"{command} is not recognized as an internal command. Run \"help\" for help.")
         return False
