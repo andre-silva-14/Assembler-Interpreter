@@ -7,13 +7,13 @@ This repository is meant to be my implementation of the solution for a [`kata`](
 
 We want to create a simple interpreter of assembler which will support the following instructions:
 
-`mov x y` - copies `y` (either a constant value or the content of a register) into register `x`
+- `mov x y` - copies `y` (either a constant value or the content of a register) into register `x`
 
-`inc x` - increases the content of the register `x` by one
+- `inc x` - increases the content of the register `x` by one
 
-`dec x` - decreases the content of the register `x` by one
+- `dec x` - decreases the content of the register `x` by one
 
-`jnz x y` - jumps to an instruction `y` steps away (positive means forward, negative means backward), but only if `x` (a constant or a register) is not zero
+- `jnz x y` - jumps to an instruction `y` steps away (positive means forward, negative means backward), but only if `x` (a constant or a register) is not zero
 
 Register names are alphabetical (letters only). Constants are always integers (positive or negative).
 
@@ -51,14 +51,18 @@ So, the function should return
 This kata is based on the [`Advent of Code 2016 - day 12`](https://adventofcode.com/2016/day/12).
 
 
-## Usage
+## Getting Started...
 
+Clone the project and initialize main to run the interactive mode:
+
+    $ git clone https://github.com/andre-silva-14/Assembler-Interpreter.git
+    $ cd Assembler-Interpreter/src
     $ python main.py
 
-Or
+Alternatively, you can create your own script and then run it through the compiler
 
 ```python
-from main import simple_assembler
+from main import compiler
 
 program = '''\
 mov a 5
@@ -68,5 +72,21 @@ dec a
 jnz a -1
 inc a'''
 
-simple_assembler(program.splitlines())
+output = compiler(program.splitlines())
+print(output)
 ```
+
+## How to contribute
+
+If you would like to contribute to the project you are more than welcome and can do so doing:
+
+- Fork the repository and clone your own fork.
+- Create a new branch for your feature update: 
+ `git checkout -b featureUpdate`
+- Code and commit your changes: `git commit -m "Feature Update"`
+- Push to GitHub: `git push origin featureUpdate`
+- Submit your changes for review by opening a pull request with a description about your update.
+
+## Licence
+
+This project is under the MIT license. See [LICENSE](LICENSE) for more details.

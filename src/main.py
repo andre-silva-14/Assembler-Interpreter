@@ -1,5 +1,9 @@
 import commands
 
+__author__ = "André Silva"
+__license__ = "MIT"
+__version__ = "1.0.0"
+__status__ = "Development"
 
 COMMANDS = {
     'mov': commands.set_register,
@@ -18,6 +22,7 @@ def main():
     Starts an interactive enviroment for the user
     to write commands and get instant feedback.
     """
+    print(f"Welcome to Assembler Interpreter {__version__}")
     while True:
         output = run_command(input(">> "))
         if output:
