@@ -13,6 +13,23 @@ COMMANDS = {
 REGISTER = {}
 
 
+def main():
+    """
+    Starts an interactive enviroment for the user
+    to write commands and get instant feedback.
+    """
+    while True:
+        output = run_command(input(">> "))
+        if output:
+            try:
+                REGISTER.update(output)
+                print(REGISTER)
+            except TypeError:
+                # Commands that return indexes are meant to be used on compiler
+                # scripts so they will be ignored in interactive mode.
+                pass
+
+
 def run_command(command):
     """
     Runs individual commands and returns it's result.
@@ -52,11 +69,4 @@ def compiler(program):
 
 
 if __name__ == "__main__":
-    while True:
-        output = run_command(input(">> "))
-        if output:
-            try:
-                REGISTER.update(output)
-                print(REGISTER)
-            except TypeError:
-                pass
+    main()
