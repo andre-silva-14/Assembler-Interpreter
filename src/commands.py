@@ -13,15 +13,17 @@ def set_register(args: list, register_copy: dict):
     args_count = 2
     name = "SetRegister"
 
-    if not ArgumentCountException(name, len(args), args_count):
+    if ArgumentCountException(name, len(args), args_count):
         return False
 
-    register = args[0]
-    value = args[1]
-    if not ArgumentTypeException(name, (register, 'alpha'), (value, 'int'), silence=['int']):
+    register, value = args
+    # Int is silenced in case user wants to assign a variable to another variable,
+    # in that case we do not want the error message to show up.
+    if ArgumentTypeException(name, (register, 'alpha'), (value, 'int'), silence=['int',]):
         try:
             value = register_copy[value]
         except KeyError:
+            ArgumentTypeException(name, (value, 'int'))
             return False
 
     return {register: int(value)}
@@ -37,36 +39,37 @@ def increment_value(args: list, register_copy: dict):
     args_count = 1
     name = "IncrementValue"
 
-    if not ArgumentCountException(name, len(args), args_count):
+    if ArgumentCountException(name, len(args), args_count):
         return False
 
     register = args[0]
-    if not UninitializedRegisterException(name, register_copy, register):
+    if UninitializedRegisterException(name, register_copy, register):
         return False
 
     return {register: register_copy[register] + 1}
 
 
-def decrease_value(args, register_copy: dict):
+def decrement_value(args: list, register_copy: dict):
     """
-    "dec x" - Decreases the content of the register x by one.
+    "dec x" - Decrements the content of the register x by one.
     :param args: Array of arguments passed into this command.
     :param register_copy: Dict with all Initialized registers.
     :return: False if errors are found. Dictionary with created/changed registers and it's values otherwise.
     """
     args_count = 1
     name = "DecrementValue"
-    if not ArgumentCountException(name, len(args), args_count):
+
+    if ArgumentCountException(name, len(args), args_count):
         return False
 
     register = args[0]
-    if not UninitializedRegisterException(name, register_copy, register):
+    if UninitializedRegisterException(name, register_copy, register):
         return False
 
     return {register: register_copy[register] - 1}
 
 
-def jump_instruction(args, register_copy: dict):
+def jump_instruction(args: list, register_copy: dict):
     """
     "jnz x y" - Jumps to an instruction y steps away (positive means forward, negative means backward),
     but only if x (a constant or a register) is not zero
@@ -76,19 +79,19 @@ def jump_instruction(args, register_copy: dict):
     """
     args_count = 2
     name = "JumpInstruction"
-    if not ArgumentCountException(name, len(args), args_count):
+
+    if ArgumentCountException(name, len(args), args_count):
         return False
 
-    register = args[0]
-    value = args[1]
-    if not ArgumentTypeException(name, (register, 'alpha'), (value, 'int'), silence=['alpha']):
+    register, value = args
+    if ArgumentTypeException(name, (register, 'alpha'), (value, 'int'), silence=['alpha']):
         try:
             register = int(register)
-        except TypeError:
-            print(f'{name} ArgumentTypeException: Provided data type is incorrect.')
+        except ValueError:
+            ArgumentTypeException(name, (register, 'alpha'))
             return False
 
-    elif not UninitializedRegisterException(name, register_copy, register):
+    elif UninitializedRegisterException(name, register_copy, register):
         return False
     else:
         register = register_copy[register]
@@ -96,7 +99,7 @@ def jump_instruction(args, register_copy: dict):
     return int(value) if register != 0 else False
 
 
-def help(args, register_copy: dict):
+def help(args: list, register_copy: dict):
     """
     Help function to guide user.
     :return: List of available commands.
@@ -114,7 +117,7 @@ the defined variable is 0. I.e. jnz a -2",
         print(f"- {command} : {commands[command]}")
 
 
-def quit_assembler(args, register_copy: dict):
+def quit_assembler(args: list, register_copy: dict):
     """
     Quits the program.
     :return: None

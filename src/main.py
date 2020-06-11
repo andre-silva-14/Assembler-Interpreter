@@ -4,7 +4,7 @@ import commands
 COMMANDS = {
     'mov': commands.set_register,
     'inc': commands.increment_value,
-    'dec': commands.decrease_value,
+    'dec': commands.decrement_value,
     'jnz': commands.jump_instruction,
     'help': commands.help,
     'quit': commands.quit_assembler,
@@ -14,6 +14,11 @@ REGISTER = {}
 
 
 def run_command(command):
+    """
+    Runs individual commands and returns it's result.
+    :param command: The whole command string of input.
+    :return: Returns the command output.
+    """
     args = command.split()[1:]
     command = command.split()[0]
     try:
@@ -23,7 +28,12 @@ def run_command(command):
         return False
 
 
-def simple_assembler(program):
+def compiler(program):
+    """
+    Compiles a whole multiline program and returns the final result.
+    :param program: The whole multiline commands separated with \n as a single string.
+    :return: Returns the final program output.
+    """
     REGISTER.clear()
     i = 0
     while i < len(program):
