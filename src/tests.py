@@ -1,58 +1,72 @@
 from main import compiler
+import time
 
 
 def main():
-    print("Starting Test 1...")
-    assert test(compiler(code0.splitlines()), {})
+    for index, test in enumerate(TESTS):
+        print(f"\n\nStarting Test {index + 1}...")
 
-    print("\n\nStarting Test 2...")
-    assert test(compiler(code1.splitlines()), {'a': 1})
-
-    print("\n\nStarting Test 3...")
-    assert test(compiler(code2.splitlines()), {'a': 409600, 'c': 409600, 'b': 409600})
+        program, expected_result = test
+        assert run_test(program.splitlines(), expected_result)
 
 
-def test(result: dict, expected: dict):
+def run_test(program: list, expected: dict):
+    start = time.time()
+    result = compiler(program)
+    end = time.time()
+    runtime = round((end - start)* 1000)
+
     if result == expected:
+        print(f"Completed in {runtime} ms.")
         print("Test completed successfully!")
         return True
     else:
+        print(f"Completed in {runtime} ms.")
         print("Test Failed!")
         return False
 
 
-code0 = '''\
-fasdfs
-mov
-inc
-inc a
-dec
-jnz
-inc '''
+TESTS = [
 
+    (
+        '''\
+        trigger error
+        mov
+        inc
+        inc a
+        dec
+        jnz
+        inc ''',
+        {}
+    ),
 
-code1 = '''\
-mov a 5
-inc a
-dec a
-dec a
-jnz a -1
-inc a'''
+    (
+        '''\
+        mov a 5
+        inc a
+        dec a
+        dec a
+        jnz a -1
+        inc a''',
+        {'a': 1}
+    ),
 
-
-code2 = '''\
-mov c 12
-mov b 0
-mov a 200
-dec a
-inc b
-jnz a -2
-dec c
-mov a b
-jnz c -5
-jnz 0 1
-mov c a'''
-
+    (
+        '''\
+        mov c 12
+        mov b 0
+        mov a 200
+        dec a
+        inc b
+        jnz a -2
+        dec c
+        mov a b
+        jnz c -5
+        jnz 0 1
+        mov c a''',
+        {'a': 409600, 'c': 409600, 'b': 409600}
+    ),
+]
 
 if __name__ == "__main__":
     main()
