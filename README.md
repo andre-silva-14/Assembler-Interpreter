@@ -55,8 +55,8 @@ This kata is based on the [`Advent of Code 2016 - day 12`](https://adventofcode.
 
 Clone the project and initialize main to run the interactive mode:
 
-    $ git clone https://github.com/andre-silva-14/Assembler-Interpreter.git
-    $ cd Assembler-Interpreter/src
+    $ git clone https://github.com/andre-silva-14/assembler-interpreter.git
+    $ cd assembler-interpreter/src
     $ python main.py
 
 Alternatively, you can create your own script and then run it through the compiler
