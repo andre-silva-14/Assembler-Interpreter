@@ -1,3 +1,6 @@
+import time
+
+
 def isint(val: int) -> bool:
     """
     Check if a given input can be converted to an Integer.
@@ -23,3 +26,16 @@ def isinitialized(register: str, register_copy: dict) -> bool:
         return True
     except KeyError:
         return False
+
+
+def get_runtime(func: callable, *args: any) -> int:
+    """
+    Returns the time difference between the start and end of a specific function.
+    :param func: Function that is desired to run.
+    :param args: Any arguments that function needs to run.
+    :return: Runtime rounded to ms.
+    """
+    start = time.time()
+    result = func(*args)
+    end = time.time()
+    return result, round((end - start)* 1000)
