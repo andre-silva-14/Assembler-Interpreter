@@ -1,5 +1,6 @@
 from exceptions import (ArgumentCountException, ArgumentTypeException,
                         UninitializedRegisterException)
+from helpers import strip_docs
 
 
 def set_register(args: list, register_copy: dict):
@@ -75,7 +76,7 @@ def jump_instruction(args: list, register_copy: dict):
     but only if x (a constant or a register) is not zero
     :param args: Array of arguments passed into this command.
     :param register_copy: Dict with all Initialized registers.
-    :return: False if errors are found. Integer with jumps value otherwise.
+    :return: False if errors are found. Integer with jump value otherwise.
     """
     args_count = 2
     name = "JumpInstruction"
@@ -99,22 +100,22 @@ def jump_instruction(args: list, register_copy: dict):
     return int(value) if register != 0 else False
 
 
-def help(args: list, register_copy: dict):
+def help(args: list, register_copy: dict) -> None:
     """
-    Help function to guide user.
-    :return: List of available commands.
+    "help" or "help command" gives the user detailed information about the
+    command and how to use it.
     """
-    commands = {
-        'mov': "Create a variable. I.e. mov a 5",
-        'inc': "Increment variable by 1. I.e. inc a",
-        'dec': "Decrement variable by 1. I.e. dec a",
-        'jnz': "Jump a specific amount of steps forwards or backwards inside a multi-command call until \
-the defined variable is 0. I.e. jnz a -2",
-        'quit': "Quit the assembler."
-    }
+    from main import COMMANDS
 
-    for command in commands:
-        print(f"- {command} : {commands[command]}")
+    if args:
+        for command in set(args):
+            try:
+                print(f"- {command} : {strip_docs(COMMANDS[command].__doc__)}")
+            except KeyError:
+                print(f"{command} is not recognized as an internal command. Run \"help\" for help.")
+    else:
+        for command, func in COMMANDS.items():
+            print(f"- {command} : {strip_docs(func.__doc__)}")
 
 
 def quit_assembler(args: list, register_copy: dict):

@@ -39,3 +39,12 @@ def get_runtime(func: callable, *args: any) -> int:
     result = func(*args)
     end = time.time()
     return result, round((end - start)* 1000)
+
+
+def strip_docs(doc: str) -> str:
+    """
+    Removes all additional information on the docs (i.e. params and returns).
+    :param doc: Full docstring of a function.
+    :return: Stripped docstring with only main information.
+    """
+    return doc[:doc.find(':')]
