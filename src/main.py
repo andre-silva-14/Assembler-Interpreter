@@ -30,9 +30,9 @@ def main():
                 REGISTER.update(output)
                 print(REGISTER)
             except TypeError:
-                # Commands that return indexes are meant to be used on compiler
-                # scripts so they will be ignored in interactive mode.
-                pass
+                # Commands that return indexes are meant to be used only on
+                # the compiler and not on Interactive mode.
+                print("CommandError: Used command is not supported on interactive mode")
 
 
 def run_command(command):
