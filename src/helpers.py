@@ -1,6 +1,3 @@
-import time
-
-
 def isint(val: int) -> bool:
     """
     Check if a given input can be converted to an Integer.
@@ -35,6 +32,7 @@ def get_runtime(func: callable, *args: any) -> int:
     :param args: Any arguments that function needs to run.
     :return: Runtime rounded to ms.
     """
+    import time
     start = time.time()
     result = func(*args)
     end = time.time()

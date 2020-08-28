@@ -120,7 +120,8 @@ def help(args: list, register_copy: dict) -> None:
 
 def quit_assembler(args: list, register_copy: dict):
     """
-    Quits the program.
+    "quit" or Ctrl+C quits the program.
     :return: None
     """
-    quit()
+    import sys
+    sys.exit(0)
