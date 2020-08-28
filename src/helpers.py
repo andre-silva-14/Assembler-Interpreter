@@ -46,3 +46,12 @@ def strip_docs(doc: str) -> str:
     :return: Stripped docstring with only main information.
     """
     return doc[:doc.find(':')]
+
+
+def get_file_extension(filename: str) -> str:
+    """
+    Finds the extension of a file given its full name.
+    :param filename: Complete filename.
+    :return: The extension file type of the file.
+    """
+    return filename.split('.')[-1]

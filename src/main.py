@@ -1,10 +1,12 @@
 import commands
 import signal
+import sys
 
 __author__ = "André Silva"
 __license__ = "MIT"
 __version__ = "1.0.2"
 __status__ = "Development"
+__extension__ = "lu"
 
 COMMANDS = {
     'mov': commands.set_register,
@@ -19,6 +21,18 @@ REGISTER = {}
 
 
 def main():
+    if len(sys.argv) == 1:
+        interactive()
+    else:
+        program = process_file(sys.argv[1])
+        result = compiler(program)
+        REGISTER.update(result)
+        print(REGISTER)
+        input("Press Enter to quit...")
+
+
+
+def interactive():
     """
     Starts an interactive enviroment for the user
     to write commands and get instant feedback.
@@ -38,25 +52,10 @@ def main():
                 print("CommandError: Used command is not supported on interactive mode")
 
 
-def run_command(command):
+def compiler(program: list):
     """
-    Runs individual commands and returns it's result.
-    :param command: The whole command string of input.
-    :return: Returns the command output.
-    """
-    args = command.split()[1:]
-    command = command.split()[0]
-    try:
-        return COMMANDS[command](args, REGISTER)
-    except KeyError:
-        print(f"{command} is not recognized as an internal command. Run \"help\" for help.")
-        return False
-
-
-def compiler(program):
-    """
-    Compiles a whole multiline program and returns the final result.
-    :param program: The whole multiline commands separated with \n as a single string.
+    Compiles a whole multiline program and returns the final result (current Register).
+    :param program: The whole multiline commands separated with \n as a string list.
     :return: Returns the final program output.
     """
     REGISTER.clear()
@@ -74,6 +73,36 @@ def compiler(program):
             i += 1
 
     return REGISTER
+
+
+def run_command(command: str):
+    """
+    Runs individual commands and returns it's result.
+    :param command: The whole command string of input.
+    :return: Returns the command output.
+    """
+    args = command.split()[1:]
+    command = command.split()[0]
+    try:
+        return COMMANDS[command](args, REGISTER)
+    except KeyError:
+        print(f"{command} is not recognized as an internal command. Run \"help\" for help.")
+        return False
+
+
+def process_file(filename: str):
+    from helpers import get_file_extension
+    try:
+        if get_file_extension(filename) != __extension__:
+            raise IOError
+        with open(filename, 'r') as file:
+            return file.read().splitlines()
+    except FileNotFoundError:
+        print(f"{filename} was not found in the current directory.")
+        return sys.exit(0)
+    except IOError:
+        print(f"{filename} does not have the correct extension file type. Try example.{__extension__}")
+        return sys.exit(0)
 
 
 if __name__ == "__main__":
