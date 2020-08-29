@@ -1,0 +1,7 @@
+trigger error
+mov
+inc
+inc a
+dec
+jnz
+inc

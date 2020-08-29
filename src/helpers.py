@@ -55,3 +55,14 @@ def get_file_extension(filename: str) -> str:
     :return: The extension file type of the file.
     """
     return filename.split('.')[-1]
+
+
+def build_test_path(filename: str, test_folder: str= 'tests') -> str:
+    """
+    Build the relative path to a test file.
+    :param filename: Complete filename.
+    :param test_folder: Name of the test folder.
+    :return: The relative path to the test file.
+    """
+    import os
+    return os.path.join(test_folder, filename)

@@ -1,5 +1,5 @@
-from main import compiler
-from helpers import get_runtime
+from main import compiler, process_file
+from helpers import get_runtime, build_test_path
 
 
 def main():
@@ -7,7 +7,7 @@ def main():
         print(f"\n\nStarting Test {index + 1}...")
 
         program, expected_result, time_limit = test
-        assert run_test(program.splitlines(), expected_result, time_limit)
+        assert run_test(process_file(program), expected_result, time_limit)
 
 
 def run_test(program: list, expected: dict, time_limit: int):
@@ -29,43 +29,19 @@ def run_test(program: list, expected: dict, time_limit: int):
 TESTS = [
     # ( Test(str), Expected(dict), Limit Time(int // ms))
     (
-        '''\
-        trigger error
-        mov
-        inc
-        inc a
-        dec
-        jnz
-        inc ''',
+        build_test_path('test_1.lu'),
         {},
         2
     ),
 
     (
-        '''\
-        mov a 5
-        inc a
-        dec a
-        dec a
-        jnz a -1
-        inc a''',
+        build_test_path('test_2.lu'),
         {'a': 1},
         1
     ),
 
     (
-        '''\
-        mov c 12
-        mov b 0
-        mov a 200
-        dec a
-        inc b
-        jnz a -2
-        dec c
-        mov a b
-        jnz c -5
-        jnz 0 1
-        mov c a''',
+        build_test_path('test_3.lu'),
         {'a': 409600, 'c': 409600, 'b': 409600},
         2000
     ),
