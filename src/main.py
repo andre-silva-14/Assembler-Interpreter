@@ -1,10 +1,11 @@
+#!usr/bin/env python3
 import commands
 import signal
 import sys
 
 __author__ = "André Silva"
 __license__ = "MIT"
-__version__ = "1.0.2"
+__version__ = "1.1.0"
 __status__ = "Development"
 __extension__ = "lu"
 
@@ -101,7 +102,8 @@ def process_file(filename: str):
         print(f"{filename} was not found in the current directory.")
         return sys.exit(0)
     except IOError:
-        print(f"{filename} does not have the correct extension file type. Try example.{__extension__}")
+        converted_filename = ''.join(filename.split('.')[:-1])
+        print(f"{filename} does not have the correct extension file type. Try {converted_filename}.{__extension__}")
         return sys.exit(0)
 
 
