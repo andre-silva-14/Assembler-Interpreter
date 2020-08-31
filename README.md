@@ -7,8 +7,8 @@ The main focus in this project at the moment is a robust and clean structure tha
 
 Clone the project and run main to initialize the *interactive mode*:
 
-    $ git clone https://github.com/andre-silva-14/assembler-interpreter.git
-    $ cd assembler-interpreter/src
+    $ git clone https://github.com/andre-silva-14/lupey.git
+    $ cd lupey/src
     $ python main.py
 
 Alternatively, create your own script on a *.lu* file as the example bellow:
