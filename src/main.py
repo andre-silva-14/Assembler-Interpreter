@@ -10,7 +10,7 @@ __status__ = "Development"
 __extension__ = "lu"
 
 COMMANDS = {
-    'mov': commands.set_register,
+    'set': commands.set_register,
     'inc': commands.increment_value,
     'dec': commands.decrement_value,
     'jnz': commands.jump_instruction,
@@ -38,7 +38,7 @@ def interactive():
     Starts an interactive enviroment for the user
     to write commands and get instant feedback.
     """
-    print(f"Welcome to Assembler Interpreter {__version__}. Run \"help\" for help.")
+    print(f"Welcome to Lupey {__version__}. Run \"help\" for help.")
     # Create a Signal to support Ctrl+C to quit the program.
     signal.signal(signal.SIGINT, COMMANDS['quit'])
     while True:

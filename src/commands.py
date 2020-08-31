@@ -5,7 +5,7 @@ from helpers import strip_docs
 
 def set_register(args: list, register_copy: dict):
     """
-    "mov x y" - Copies y (either a constant value or the content of a register) into register x.
+    "set x y" - Copies y (either a constant value or the content of a register) into register x.
     Register names are alphabetical (letters only). Constants are always integers (positive or negative).
     :param args: Array of arguments passed into this command.
     :param register_copy: Dict with all Initialized registers.
