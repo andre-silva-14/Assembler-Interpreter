@@ -92,6 +92,12 @@ def run_command(command: str):
 
 
 def process_file(filename: str):
+    """
+    Read contents of a file after checking that it exists and that it is the
+    correct type of file.
+    :param filename: Name of the file or Path of the file.
+    :return: Returns a list with each individual line of the file.
+    """
     from helpers import get_file_extension
     try:
         if get_file_extension(filename) != __extension__:
